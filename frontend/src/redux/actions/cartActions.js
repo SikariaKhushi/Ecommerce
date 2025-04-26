@@ -1,8 +1,8 @@
 // src/redux/actions/cartActions.js
-import axios from 'axios';
+import api from '../../utils/api';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/products/${id}`);
+  const { data } = await api.get(`/products/${id}`);
 
   dispatch({
     type: 'CART_ADD_ITEM',
@@ -46,3 +46,7 @@ export const savePaymentMethod = (data) => (dispatch) => {
   localStorage.setItem('paymentMethod', JSON.stringify(data));
 };
 
+export const clearCart = () => (dispatch) => {
+  dispatch({ type: 'CART_CLEAR_ITEMS' });
+  localStorage.removeItem('cartItems');
+};
